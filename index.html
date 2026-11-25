@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Crypto Impact Feed</title>
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <div class="logo">⟁</div>
+      <div>
+        <div class="title">Crypto Impact Feed</div>
+        <div class="subtitle">Только новости, которые двигают рынок</div>
+      </div>
+    </div>
+
+    <div class="status">
+      <div id="lastUpdate" class="pill">Обновление: —</div>
+      <div id="connection" class="pill ok">Источник: local JSON</div>
+    </div>
+  </header>
+
+  <main class="layout">
+    <aside class="sidebar">
+      <section class="panel">
+        <div class="panelTitle">Фильтры</div>
+
+        <label class="field">
+          <span>Impact минимум</span>
+          <input id="impactMin" type="range" min="0" max="100" value="70" />
+          <div class="rangeRow">
+            <span id="impactMinLabel">70</span>
+            <button id="resetFilters" class="btn ghost" type="button">Сброс</button>
+          </div>
+        </label>
+
+        <label class="checkRow">
+          <input id="onlyHigh" type="checkbox" checked />
+          <span>Только HIGH (≥ 80)</span>
+        </label>
+
+        <label class="checkRow">
+          <input id="onlyMoved" type="checkbox" checked />
+          <span>Только с движением цены</span>
+        </label>
+
+        <label class="field">
+          <span>Поиск</span>
+          <input id="search" type="text" placeholder="ETF, SEC, hack, Binance..." />
+        </label>
+
+        <div class="tags">
+          <div class="tagsTitle">Тикеры (клик — включить/выключить)</div>
+          <div id="tagChips" class="chips"></div>
+        </div>
+      </section>
+
+      <section class="panel">
+        <div class="panelTitle">Режим</div>
+        <div class="tabs">
+          <button id="tabToday" class="tab active" type="button">Сегодня</button>
+          <button id="tabArchive" class="tab" type="button">Архив</button>
+        </div>
+        <div class="hint">
+          “Сегодня” показывает новости за последние 24 часа.
+        </div>
+      </section>
+
+      <section class="panel">
+        <div class="panelTitle">Авто-обновление</div>
+        <label class="field">
+          <span>Интервал (сек)</span>
+          <input id="pollSec" type="number" min="5" max="300" value="30" />
+        </label>
+        <button id="applyPoll" class="btn" type="button">Применить</button>
+        <div class="hint">Чтобы “обновлялось каждый раз новое”, меняй `data/news.json` (или подключи API позже).</div>
+      </section>
+    </aside>
+
+    <section class="content">
+      <div class="toolbar">
+        <div class="counts">
+          <span id="shownCount">0</span> / <span id="totalCount">0</span> новостей
+        </div>
+        <button id="markAllSeen" class="btn ghost" type="button">Отметить всё как прочитанное</button>
+      </div>
+
+      <div id="feed" class="feed"></div>
+
+      <footer class="footer">
+        <div>МVP без бэкенда: данные из <code>data/news.json</code>.</div>
+        <div>Следующий шаг: заменить источник на API + агрегатор.</div>
+      </footer>
+    </section>
+  </main>
+
+  <script src="./utils.js"></script>
+  <script src="./app.js"></script>
+</body>
+</html>
