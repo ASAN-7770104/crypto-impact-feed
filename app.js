@@ -170,7 +170,8 @@ function refresh(recomputeChips=true, newIds=[]){
 }
 
 function applyFilters(items){
-  const now = Date.now();
+  // The demo data is a static file, so "today" counts back from the moment the data was updated.
+  const now = new Date(CACHE.updatedAt).getTime() || Date.now();
   const dayMs = 24 * 60 * 60 * 1000;
 
   return items
